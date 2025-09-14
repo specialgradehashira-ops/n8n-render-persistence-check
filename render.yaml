@@ -3,52 +3,26 @@ services:
     name: n8n-workflow
     env: docker
     plan: free
-    autoDeploy: true
     envVars:
-      # --- n8n web config ---
-      - key: N8N_HOST
-        value: n8n-render-persistence-check.onrender.com
-      - key: N8N_PROTOCOL
-        value: https
-      - key: WEBHOOK_URL
-        value: https://n8n-render-persistence-check.onrender.com/
-      - key: N8N_EDITOR_BASE_URL
-        value: https://n8n-render-persistence-check.onrender.com
-      - key: GENERIC_TIMEZONE
-        value: UTC
-      - key: TZ
-        value: UTC
-
-      # --- Basic Auth (optional but recommended) ---
-      - key: N8N_BASIC_AUTH_ACTIVE
-        value: "true"
-      - key: N8N_BASIC_AUTH_USER
-        value: admin
-      - key: N8N_BASIC_AUTH_PASSWORD
-        sync: false   # set in Render dashboard
-
-      # --- Encryption key (REQUIRED) ---
-      - key: N8N_ENCRYPTION_KEY
-        sync: false   # set in Render dashboard (long random string)
-
-      # --- Instagram cookie (for yt-dlp reliability from DC IPs) ---
-      - key: IG_SESSIONID
-        sync: false   # set in Render dashboard
-
-      # --- Postgres (Neon) ---
       - key: DB_TYPE
         value: postgresdb
       - key: DB_POSTGRESDB_HOST
         value: ep-lingering-tree-adbagnzy-pooler.c-2.us-east-1.aws.neon.tech
       - key: DB_POSTGRESDB_PORT
-        value: "5432"
+        value: 5432
       - key: DB_POSTGRESDB_DATABASE
         value: neondb
       - key: DB_POSTGRESDB_USER
         value: neondb_owner
       - key: DB_POSTGRESDB_PASSWORD
-        sync: false   # set in Render dashboard
+        sync: false
       - key: DB_POSTGRESDB_SSL
+        value: true
+      - key: GENERIC_TIMEZONE
+        value: UTC
+      - key: N8N_BASIC_AUTH_ACTIVE
         value: "true"
-      - key: DB_POSTGRESDB_SSL_REJECT_UNAUTHORIZED
-        value: "false"
+      - key: N8N_BASIC_AUTH_USER
+        value: admin
+      - key: N8N_BASIC_AUTH_PASSWORD
+        sync: false
