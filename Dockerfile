@@ -1,14 +1,8 @@
-# Use the Debian/glibc variant so yt-dlp + ffmpeg work cleanly
-FROM n8nio/n8n:1.110.1-debian
+FROM n8nio/n8n:1.110.1
 
 USER root
-RUN apt-get update && apt-get install -y --no-install-recommends \
-      ca-certificates curl ffmpeg \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install yt-dlp (glibc build)
-RUN curl -fsSL -o /usr/local/bin/yt-dlp \
-      https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp \
-    && chmod +x /usr/local/bin/yt-dlp
+# ffmpeg + Python + pip; install yt-dlp as a Python package (stable on musl)
+RUN apk add --no-cache ca-certificates ffmpeg python3 py3-pip \
+ && pip3 install --no-cache-dir -U yt-dlp
 
 USER node
