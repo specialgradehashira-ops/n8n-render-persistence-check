@@ -1,5 +1,5 @@
-# Debian/glibc base that works with yt-dlp and ffmpeg
-FROM n8nio/n8n:1.110.1
+# Use the Debian/glibc variant so yt-dlp + ffmpeg work cleanly
+FROM n8nio/n8n:1.110.1-debian
 
 USER root
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -10,8 +10,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN curl -fsSL -o /usr/local/bin/yt-dlp \
       https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp \
     && chmod +x /usr/local/bin/yt-dlp
-
-# (optional) prove they’re present
-RUN ffmpeg -version | head -1 && yt-dlp --version
 
 USER node
